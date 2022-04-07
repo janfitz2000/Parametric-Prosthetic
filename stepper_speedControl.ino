@@ -5,7 +5,9 @@ Servo myservo;
 
 const int trigPin = 13;
 const int echoPin = 12;
+const int buttonPin = 2;
 
+int buttonState = 0;
 
 long duration;
 int FirstDistance=0;
@@ -24,7 +26,7 @@ float GetDistance()
 digitalWrite(trigPin, LOW);
 delayMicroseconds(2);
 
-// Set the trigPin on HIGH state for 10 micro seconds
+// Sets the trigPin on HIGH state for 10 micro seconds
 digitalWrite(trigPin, HIGH);
 delayMicroseconds(10);
 digitalWrite(trigPin, LOW);
@@ -67,8 +69,11 @@ void GetSpeed(){
 //}
 
 void setup() {
+  pinMode(buttonPin, INPUT);
   myservo.attach(9);
-  myservo.write(10); 
+//  myservo.writeMicroseconds(1300); //anticlockwise
+//  delay(2000);
+  myservo.writeMicroseconds(1700);  //clockwise
 //  delay(50000);    
 //  myservo.detach(); 
     
@@ -82,6 +87,13 @@ void setup() {
 
 void loop() {
   // read the sensor value:
+  buttonState = digitalRead(buttonPin);
+
+  if (buttonState == HIGH) {
+    myservo.writeMicroseconds(1700);
+  } else {
+    myservo.writeMicroseconds(1300);
+  }
   int sensorReading = analogRead(A0);
   // map it to a range from 0 to 100:
   int motorSpeed = map(sensorReading, 0, 1023, 0, 100);
