@@ -24,7 +24,7 @@ float GetDistance()
 digitalWrite(trigPin, LOW);
 delayMicroseconds(2);
 
-// Sets the trigPin on HIGH state for 10 micro seconds
+// Set the trigPin on HIGH state for 10 micro seconds
 digitalWrite(trigPin, HIGH);
 delayMicroseconds(10);
 digitalWrite(trigPin, LOW);
